@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Upload File
+    </title>
+    <!-- Start Using Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- end of Bootstrap -->
+
+</head>
+
+<body>
+    <!-- <form action="http://localhost:3000/upload" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Default file input example</label>
+            <input class="form-control" type="file" id="file" name="file">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        </div>
+    </form> -->
+    <!-- <form>
+        <input id="file" type="file" name="file" />
+        <button id="upload-button" onclick="upload_File()"> Upload </button>
+    </form> -->
+
+
+    <form id="file-form" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="file-input" />
+    </form>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+
+<!-- <script>
+    const formElem = document.querySelector('form');
+    formElem.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await fetch('/upload', {
+            method: 'POST',
+            body: new FormData(formElem),
+        });
+    });
+</script> -->
+
+<script>
+    // async function upload_File() {
+    //     let formData = new FormData();
+    //     formData.append("fileupload", fileupload.files[0]);
+    //     await fetch('http://localhost3000/upload', {
+    //         method: "POST",
+    //         body: formData
+    //     });
+    // }
+
+
+    $(document).ready(function () {
+        // Menangani event ketika file dipilih dari tag input file
+        $('#file-input').on('change', function () {
+            var file = this.files[0];
+
+            // Membuat objek form data
+            var formData = new FormData();
+            formData.append('file', file);
+
+            // Mengirim file menggunakan Ajax
+            $.ajax({
+                url: 'http://localhost:3000/upload',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Tindakan setelah file berhasil diupload
+                    alert('File berhasil diupload!');
+                }
+            });
+        });
+    });
+
+
+</script>
+
+<script>
+    // Menambahkan Customer Baru
+    // function addCustomer() {
+    // var firstName = $('#firstName').val();
+    // var lastName = $('#lastName').val();
+    // var email = $('#email').val();
+
+    // var data = {
+    //     firstName: firstName,
+    //     lastName: lastName,
+    //     email: email
+    // }
+
+    function uploadFile() {
+
+        let formData = new FormData();
+        alert(formData);
+
+        formData.append("file", fileupload.files[0]);
+
+        $.ajax({
+            url: "http://localhost:3000/upload",
+            type: "POST",
+            body: formData,
+            beforeSend: function () {
+                $('#saveButton').attr('disabled', true);
+            },
+            success: function (data) {
+
+                // $('#saveButton').attr('disabled', false);
+
+                // $('#message').html('<div class="alert alert-success">' + data.message + '</div>');
+
+                // $('#exampleModal').modal('hide');F
+
+                // $('#form_data')[0].reset();
+
+                // loadData();
+
+                // setTimeout(function () {
+                //     $('#message').html('');
+                // }, 3000);
+                alert('success')
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log(textStatus + " - " + errorThrown)
+            }
+        })
+    }
+
+</script>
+
+</html>
